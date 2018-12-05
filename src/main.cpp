@@ -55,6 +55,7 @@ int main(int, char const**)
     // Set the Icon
     sf::Image icon;
     if (!icon.loadFromFile(resourcePath() + "icon.png")) {
+    //if(!icon.loadFromFile("/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/src/icon.png")){
         return EXIT_FAILURE;
     }
     window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
@@ -62,6 +63,7 @@ int main(int, char const**)
     // Load a sprite to display
     sf::Texture texture;
     if (!texture.loadFromFile(resourcePath() + "cute_image.jpg")) {
+    //if(!texture.loadFromFile("/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/src/cute_image.jpg")){
         return EXIT_FAILURE;
     }
     sf::Sprite sprite(texture);
@@ -69,19 +71,21 @@ int main(int, char const**)
     // Create a graphical text to display
     sf::Font font;
     if (!font.loadFromFile(resourcePath() + "sansation.ttf")) {
+    //if(!font.loadFromFile("/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/src/sansation.ttf")){
         return EXIT_FAILURE;
     }
     sf::Text text("Hello SFML", font, 50);
     text.setFillColor(sf::Color::Black);
 
     // Load a music to play
-    sf::Music music;
-    if (!music.openFromFile(resourcePath() + "nice_music.ogg")) {
-        return EXIT_FAILURE;
-    }
+    //sf::Music music;
+    //if (!music.openFromFile(resourcePath() + "nice_music.ogg")) {
+    //if(!music.openFromFile("/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/src/nice_music.ogg")){ 
+    //   return EXIT_FAILURE;
+    //}
 
     // Play the music
-    music.play();
+    //music.play();
 
     // Start the game loop
     while (window.isOpen())
@@ -116,4 +120,3 @@ int main(int, char const**)
 
     return EXIT_SUCCESS;
 }
-
