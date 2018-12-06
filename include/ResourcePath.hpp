@@ -38,6 +38,7 @@
 /// with the main bundle or an empty string is there is no bundle.
 ///
 ////////////////////////////////////////////////////////////
-std::string resourcePath(void);
+//std::string resourcePath(void);
+std::string resourcePath = "/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/resources/";
 
 #endif
