@@ -8,4 +8,5 @@ Install and setup SFML from the official website [SFML](https://www.sfml-dev.org
 ## Compiling
 ```cpp
 $ g++ src/main.cpp -o bin/sfml-app -lsfml-graphics -lsfml-window -lsfml-system
+$ clang++ -framework Foundation src/main.cpp src/ResourcePath.mm -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system -lstdc++ && ./bin/sfml-app 
 ```
