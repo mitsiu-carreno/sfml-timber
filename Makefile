@@ -31,28 +31,32 @@ INC := -I include $(INCLIST)
 FRAMEWORKS:= -framework Foundation
 LIB:= -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lstdc++
 
-#CFLAGS=-c -std=c++1z -Wall -Werror -g -v
-CFLAGS=-c
+CFLAGS=-c -std=c++1z -Wall -Werror -g
 #LDFLAGS=$(LIBRARIES) $(FRAMEWORKS)
 #INC := -I include
 
 $(APPDIR): $(OBJECTS)
 	@mkdir -p $(APPDIR)
 	@echo "Linking..."
-	@echo "$(CC) $^ -o $(APP) $(LIB)"
-	@echo "   Linking $(APPDIR)"; $(CC) $^ -o $(APP) $(LIB)
+	@echo "   Linking $(APPDIR)"
+	@echo "      $(CC) $^ -o $(APP) $(LIB)"; $(CC) $^ -o $(APP) $(LIB); 
+	@echo "Build complete, executing..."
+	@echo ""
+	./$(APP)
+
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(BUILDLIST)
-	@echo "$(CC) $(CFLAGS) $(INC) -c -o $@ $<" 
-	@echo "Compiling $<..."; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
+	@echo "Compiling $<..."
+	@echo "$(CC) $(CFLAGS) $(INC) $< -o $@"; $(CC) $(CFLAGS) $(INC) $< -o $@
 
-#.PHONY: clean
-#all:
-#	@echo "$(SOURCES)"
-#	@echo "$(OBJECTS)"
-#	@echo ""
-#	@echo "$(INCDIRS)"
-#	@echo "$(INCLIST)"
-#	@echo "$(BUILDLIST)"
-#	$(CC) $(CFLAGS) $(LDFLAGS) $(OUT)
+run:
+	./$(APP)
+
+clean:
+	@echo "Cleaning $(APP) ..."; $(RM) -r $(APP)
+
+hardclean:
+	@echo "Cleaning $(APP) and $(BUILDDIR)/*..."; $(RM) -r $(BUILDDIR)/* $(APP)
+
+.PHONY: clean
