@@ -8,10 +8,10 @@ using namespace sf;
 int main()
 {
   // Create a video mode object
-  VideoMode video(1920,1080);
+  VideoMode video(1280,800);
 
   // Create and open a window for the game RenderWindow
-  RenderWindow window(video, "Timber!!!");
+  RenderWindow window(video, "Timber!!!", Style::Fullscreen);
 
   // Display the list of all the video modes available for fullscreen
 std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
