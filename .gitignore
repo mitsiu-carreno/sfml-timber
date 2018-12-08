@@ -27,6 +27,8 @@
 *.lib
 
 # Executables
+bin/*
+!bin/.gitkeep
 *.exe
 *.out
 *.app
