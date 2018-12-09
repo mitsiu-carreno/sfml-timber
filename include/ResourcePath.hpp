@@ -39,7 +39,7 @@
 ///
 ////////////////////////////////////////////////////////////
 //std::string resourcePath(void);
-std::string resourcePath = "/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/resources/";
-//std::string resourcePath ="/Users/mitsiu/Documents/dev_hell/sfml-timber/resources/";
+//std::string resourcePath = "/Users/jorandradefig/Documents/go/src/github.com/mitsiu-carreno/sfml-timber/resources/";
+std::string resourcePath ="/Users/mitsiu/Documents/dev_hell/sfml-timber/resources/";
 
 #endif

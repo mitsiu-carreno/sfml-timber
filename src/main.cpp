@@ -7,20 +7,51 @@ using namespace sf;
 
 int main()
 {
+
   // Create a video mode object
   VideoMode video(1280,800);
 
   // Create and open a window for the game RenderWindow
   RenderWindow window(video, "Timber!!!", Style::Fullscreen);
+  
+  while(window.isOpen())
+  {
+    /******************************
+     * Handle the players input   *
+     ******************************/
+    Event event;
+    while (window.pollEvent(event))
+    {
+      // Close window: exit
+      if(event.type == Event::Closed) 
+      {
+        window.close();
+      }
+      
+      // Escape pressed: exit
+      if(event.type == Event::KeyPressed && event.key.code == Keyboard::Escape)
+      {
+        window.close();
+      }
+    }
+ 
 
-  // Display the list of all the video modes available for fullscreen
-std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
-for (std::size_t i = 0; i < modes.size(); ++i)
-{
-    sf::VideoMode mode = modes[i];
-    std::cout << "Mode #" << i << ": "
-              << mode.width << "x" << mode.height << " - "
-              << mode.bitsPerPixel << " bpp" << std::endl;
-}
+    /******************************
+     * Update the scene           *
+     ******************************/
+
+
+    /******************************
+     * Draw the scene             *
+     ******************************/
+    // Clear everything from the last frame
+    window.clear();
+
+    // Draw our game scene here
+
+    // Show everything we just drew
+    window.display();
+  }
+
   return 0;
 }
