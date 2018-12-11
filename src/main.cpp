@@ -30,6 +30,13 @@ int main()
   // Set the spriteBackground to cover the screen
   spriteBackground.setPosition(0,0);
 
+  // Make a tree sprite 
+  Texture textureTree;
+  textureTree.loadFromFile("resources/graphics/tree.png");
+  Sprite spriteTree;
+  spriteTree.setTexture(textureTree);
+  spriteTree.setPosition(600,0);
+
   while(window.isOpen())
   {
     /******************************
@@ -65,6 +72,7 @@ int main()
 
     // Draw our game scene here
     window.draw(spriteBackground);
+    window.draw(spriteTree);
 
     // Show everything we just drew
     window.display();
