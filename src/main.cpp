@@ -8,8 +8,15 @@ using namespace sf;
 int main()
 {
 
+  //Variable with size widow for all the scales and sizes calculations
+  struct WindowSize{
+    int width;
+    int height;
+  };
+  WindowSize windowSize = {1280, 800};
+
   // Create a video mode object
-  VideoMode video(1280,800);
+  VideoMode video(windowSize.width, windowSize.height);
   //VideoMode video(640, 480);
 
   // Create and open a window for the game RenderWindow
@@ -28,8 +35,8 @@ int main()
   spriteBackground.setPosition(0,0);
   // Scale to fit window 
   spriteBackground.setScale(
-    1280/spriteBackground.getLocalBounds().width, 
-    800/spriteBackground.getLocalBounds().height);
+    windowSize.width/spriteBackground.getLocalBounds().width, 
+    windowSize.height/spriteBackground.getLocalBounds().height);
 
   // Make a tree sprite 
   Texture textureTree;
@@ -38,7 +45,7 @@ int main()
   spriteTree.setTexture(textureTree);
   // Center tree (half window - half sprite)
   spriteTree.setPosition(
-    (1280/2)-spriteTree.getGlobalBounds().width/2,
+    (windowSize.width/2)-spriteTree.getGlobalBounds().width/2,
     0);
 
   // Prepare the bee
