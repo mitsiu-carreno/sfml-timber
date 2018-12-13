@@ -68,6 +68,63 @@ int main()
   // How fast can the bee fly?
   //float beeSpeed = 0.0f;
 
+  
+  // Prepare the clouds
+  // Make 3 cloud sprites from 1 texture
+  Texture textureCloud;
+  // Load one texture
+  textureCloud.loadFromFile("resources/graphics/cloud.png");
+
+  struct Cloud{
+    Sprite spriteCloud;
+    bool isActive;
+    float speed;
+  };
+  // 3 new sprites with the same texture
+  Cloud cloud1;
+  Cloud cloud2;
+  Cloud cloud3;
+  cloud1.spriteCloud.setTexture(textureCloud);
+  cloud2.spriteCloud.setTexture(textureCloud);
+  cloud3.spriteCloud.setTexture(textureCloud);
+  //Sprite spriteCloud_1;
+  //Sprite spriteCloud_2;
+  //Sprite spriteCloud_3;
+  //spriteCloud_1.setTexture(textureCloud);
+  //spriteCloud_2.setTexture(textureCloud);
+  //spriteCloud_3.setTexture(textureCloud);
+  // Scale clouds to 1/3 of the sky (the sky is 40% of background top)
+  cloud1.spriteCloud.setScale(
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud1.spriteCloud.getGlobalBounds().height,
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud1.spriteCloud.getGlobalBounds().height
+  );
+  cloud2.spriteCloud.setScale(
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud2.spriteCloud.getGlobalBounds().height,
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud2.spriteCloud.getGlobalBounds().height
+  );
+  cloud3.spriteCloud.setScale(
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud3.spriteCloud.getGlobalBounds().height,
+    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud3.spriteCloud.getGlobalBounds().height
+  );
+  // Position the clouds 
+  cloud1.spriteCloud.setPosition(0,0);
+  cloud2.spriteCloud.setPosition(0,cloud2.spriteCloud.getGlobalBounds().height);
+  cloud3.spriteCloud.setPosition(0,cloud3.spriteCloud.getGlobalBounds().height * 2);
+  //spriteCloud_1.setPosition(0,0);
+  //spriteCloud_2.setPosition(0,spriteCloud_2.getGlobalBounds().height);
+  //spriteCloud_3.setPosition(0,spriteCloud_3.getGlobalBounds().height);
+  // Are clouds currently on screen?
+  cloud1.isActive = false;
+  cloud2.isActive = false;
+  cloud3.isActive = false;
+  //bool cloud1Active = false;
+  //bool cloud2Active = false;
+  //bool cloud3Active = false;
+  // How fast is each cloud?
+  cloud1.speed = 0.0f;
+  cloud2.speed = 0.0f;
+  cloud3.speed = 0.0f;
+
   while(window.isOpen())
   {
     /******************************
@@ -103,8 +160,12 @@ int main()
 
     // Draw our game scene here
     window.draw(spriteBackground);
-    window.draw(spriteTree);
+
+    window.draw(cloud1.spriteCloud);
+    window.draw(cloud2.spriteCloud);
+    window.draw(cloud3.spriteCloud);
     window.draw(spriteBee);
+    window.draw(spriteTree);
 
     // Show everything we just drew
     window.display();
