@@ -22,8 +22,8 @@ SOURCES := $(shell find $(SRCDIR) -type f -name *.$(SRCEXT))
 OBJECTS := $(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SOURCES:.$(SRCEXT)=.o))
 
 # Headers path
-#INCDIRS := $(shell find include/**/* -name '*.hpp' -o -name '*.h' -exec dirname{} \; | sort | uniq)
 INCDIRS := $(shell find include/**/* \( -name '*.hpp' -o -name '*.h' \) -exec dirname {} \; | sort | uniq)
+#INCDIRS := $(shell find include/* \( -name '*.hpp' -o -name '*.h' \) -exec dirname {} \; | sort | uniq)
 INCLIST := $(patsubst include/%,-I include/%,$(INCDIRS))
 BUILDLIST := $(patsubst include/%,$(BUILDDIR)/%,$(INCDIRS))
 

@@ -2,6 +2,7 @@
 // #include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "random_generator.hpp"
 
 using namespace sf;
 
@@ -64,9 +65,9 @@ int main()
     (windowSize.width/20)/spriteBee.getLocalBounds().width
   );
   // Is the bee currently movinb
-  //bool beeActive = false;
+  bool beeActive = false;
   // How fast can the bee fly?
-  //float beeSpeed = 0.0f;
+  float beeSpeed = 0.0f;
 
   
   // Prepare the clouds
@@ -125,6 +126,9 @@ int main()
   cloud2.speed = 0.0f;
   cloud3.speed = 0.0f;
 
+  // Variables to control time itself
+  Clock clock; 
+
   while(window.isOpen())
   {
     /******************************
@@ -151,6 +155,20 @@ int main()
      * Update the scene           *
      ******************************/
 
+    // Measure time
+    //Time dt = clock.restart();
+
+    // Set up the bee
+    if(!beeActive){
+      // How fast is the bee
+      beeSpeed = gen_random(0,200);
+      
+      // How high is the bee
+      float height = gen_random(0, 500);
+      spriteBee.setPosition(windowSize.width/4, height);
+      beeActive = true;
+
+    }
 
     /******************************
      * Draw the scene             *
