@@ -156,17 +156,31 @@ int main()
      ******************************/
 
     // Measure time
-    //Time dt = clock.restart();
+    Time dt = clock.restart();
 
     // Set up the bee
-    if(!beeActive){
+    if(!beeActive)
+    {
       // How fast is the bee
-      beeSpeed = gen_random(0,200);
+      beeSpeed = gen_random(200,400);
       
       // How high is the bee
-      float height = gen_random(0, 500);
+      float height = gen_random(500, windowSize.height);
       spriteBee.setPosition(windowSize.width/4, height);
       beeActive = true;
+    } else 
+    {
+      // Move the bee
+      spriteBee.setPosition(
+        spriteBee.getPosition().x - (beeSpeed * dt.asSeconds()),
+        spriteBee.getPosition().y
+      );
+
+      // Has the bee reached the right hand edge of the screen?
+      if(spriteBee.getPosition().x < -100){
+        // Set it up ready to be a whole new cloud next frame
+        beeActive = false;
+      }
 
     }
 
