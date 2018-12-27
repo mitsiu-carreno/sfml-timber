@@ -140,19 +140,10 @@ int main()
 
     }
     // Manage clouds
-    std::cout << "Set cloud 1 " << std::endl;
     setNewCloudPosition(cloud1, dt);
-    
-    std::cout << "Set cloud 2 " << std::endl;
     setNewCloudPosition(cloud2, dt);
-    
-    std::cout << "Set cloud 3 " << std::endl;
     setNewCloudPosition(cloud3, dt);
     
-    std::cout << std::endl;
-    std::cout << gen_random(0,10) << std::endl;
-    std::cout << gen_random(0,10) << std::endl;
-    std::cout << gen_random(0,10) << std::endl;
     /******************************
      * Draw the scene             *
      ******************************/
