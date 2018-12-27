@@ -1,4 +1,6 @@
+#include <iostream>
 #include "cloud.hpp"
+#include "constants.hpp"
 #include "random_generator.hpp"
 
 // If cloud is offscreen and needs to reset values
@@ -6,13 +8,21 @@ void setNewCloudPosition(Cloud &cloud, sf::Time dt)
 {
     if(!cloud.isActive)
     {
+        // Set a new scale for the cloud between 1/10 of the screen heigth and 1/3 of the screen height (randomly generated)
+        int newCloudScale = gen_random(getWindowHeight()*0.10, getWindowHeight()*0.30);
+        std::cout << newCloudScale << std::endl;
+        cloud.spriteCloud.setScale(
+            newCloudScale/cloud.spriteCloud.getLocalBounds().height,
+            newCloudScale/cloud.spriteCloud.getLocalBounds().height
+        );
+
         // How fast the cloud will be
-        cloud.speed = gen_random(200, 400);
+        cloud.speed = gen_random(50, 200);
 
         // How high the cloud will be
-        float height = gen_random(0, cloud.spriteCloud.getGlobalBounds().height * 2);
+        int height = gen_random(0, (getWindowHeight()*0.45)-cloud.spriteCloud.getGlobalBounds().height);
 
-        cloud.spriteCloud.setPosition(300, height);
+        cloud.spriteCloud.setPosition(getWindowWidth(), height);
         cloud.isActive = true;
     }
     else

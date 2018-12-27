@@ -1,7 +1,9 @@
 // Include important C++ libraries here
 // #include "stdafx.h"
 #include <SFML/Graphics.hpp>
+#include <stdlib.h> //sleep
 #include <iostream>
+
 #include "constants.hpp"
 #include "cloud.hpp"
 #include "random_generator.hpp"
@@ -11,14 +13,6 @@ using namespace sf;
 
 int main()
 {
-
-  /*
-  struct WindowSize{
-    int width;
-    int height;
-  };
-  WindowSize windowSize = {1280, 800};
-  */
 
   // Create a video mode object
   VideoMode video(getWindowWidth(), getWindowHeight());
@@ -80,83 +74,13 @@ int main()
   // Load one texture
   textureCloud.loadFromFile("resources/graphics/cloud.png");
 
-  Cloud cloud1;
+  Cloud cloud1 {Sprite(), false, 0.0f};
+  Cloud cloud2 {Sprite(), false, 0.0f};
+  Cloud cloud3 {Sprite(), false, 0.0f};
 
-  //Cloud cloud1 {setTexture(textureCloud), false, 0.0f};
-  //Cloud cloud1 {Sprite(), false, 0.0f};
-  //Cloud cloud2 {Sprite(), false, 0.0f};
-  //Cloud cloud3 {Sprite(), false, 0.0f};
-
-  cloud1.spriteCloud.setTexture(textureCloud);
-  cloud1.isActive = false;
-  cloud1.speed = 0.0f;
-  cloud1.spriteCloud.setPosition(0,0);
-
-  // The cloud scale must be between 1/10 of the screeen heigth and 1/3 of it randomly generated
-  int newScale = gen_random(spriteBackground.getGlobalBounds().height*0.10, spriteBackground.getGlobalBounds().height*0.33);
-  cloud1.spriteCloud.setScale(
-    newScale/cloud1.spriteCloud.getLocalBounds().height,
-    newScale/cloud1.spriteCloud.getLocalBounds().height
-  );
-  //cloud1.spriteCloud.setPosition(0,0);
-  
-  //cloud2.spriteCloud.setScale(10,10);
-  //cloud3.spriteCloud.setScale(5,5);
-
-  //Cloud cloud2 = {setTexture(textureCloud), false, 0.0f};
-
-  /*
-  struct Cloud{
-    Sprite spriteCloud;
-    bool isActive;
-    float speed;
-  };
-  
-  // 3 new sprites with the same texture
-  Cloud cloud1;
-  Cloud cloud2;
-  Cloud cloud3;
   cloud1.spriteCloud.setTexture(textureCloud);
   cloud2.spriteCloud.setTexture(textureCloud);
   cloud3.spriteCloud.setTexture(textureCloud);
-  //Sprite spriteCloud_1;
-  //Sprite spriteCloud_2;
-  //Sprite spriteCloud_3;
-  //spriteCloud_1.setTexture(textureCloud);
-  //spriteCloud_2.setTexture(textureCloud);
-  //spriteCloud_3.setTexture(textureCloud);
-  // Scale clouds to 1/3 of the sky (the sky is 40% of background top)
-  cloud1.spriteCloud.setScale(
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud1.spriteCloud.getGlobalBounds().height,
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud1.spriteCloud.getGlobalBounds().height
-  );
-  cloud2.spriteCloud.setScale(
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud2.spriteCloud.getGlobalBounds().height,
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud2.spriteCloud.getGlobalBounds().height
-  );
-  cloud3.spriteCloud.setScale(
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud3.spriteCloud.getGlobalBounds().height,
-    ((spriteBackground.getGlobalBounds().height*0.45)/3)/cloud3.spriteCloud.getGlobalBounds().height
-  );
-  // Position the clouds 
-  cloud1.spriteCloud.setPosition(0,0);
-  cloud2.spriteCloud.setPosition(0,cloud2.spriteCloud.getGlobalBounds().height);
-  cloud3.spriteCloud.setPosition(0,cloud3.spriteCloud.getGlobalBounds().height * 2);
-  //spriteCloud_1.setPosition(0,0);
-  //spriteCloud_2.setPosition(0,spriteCloud_2.getGlobalBounds().height);
-  //spriteCloud_3.setPosition(0,spriteCloud_3.getGlobalBounds().height);
-  // Are clouds currently on screen?
-  cloud1.isActive = false;
-  cloud2.isActive = false;
-  cloud3.isActive = false;
-  //bool cloud1Active = false;
-  //bool cloud2Active = false;
-  //bool cloud3Active = false;
-  // How fast is each cloud?
-  cloud1.speed = 0.0f;
-  cloud2.speed = 0.0f;
-  cloud3.speed = 0.0f;
-  */
 
   // Variables to control time itself
   Clock clock; 
@@ -216,9 +140,16 @@ int main()
 
     }
     // Manage clouds
+    std::cout << "Set cloud 1 " << std::endl;
     setNewCloudPosition(cloud1, dt);
-    //setNewCloudPosition(cloud2, dt);
-    //`setNewCloudPosition(cloud3, dt);
+    
+    std::cout << "Set cloud 2 " << std::endl;
+    setNewCloudPosition(cloud2, dt);
+    
+    std::cout << "Set cloud 3 " << std::endl;
+    setNewCloudPosition(cloud3, dt);
+    
+    std::cout << std::endl;
 
     /******************************
      * Draw the scene             *
@@ -230,8 +161,8 @@ int main()
     window.draw(spriteBackground);
 
     window.draw(cloud1.spriteCloud);
-    //window.draw(cloud2.spriteCloud);
-    //window.draw(cloud3.spriteCloud);
+    window.draw(cloud2.spriteCloud);
+    window.draw(cloud3.spriteCloud);
     window.draw(spriteBee);
     window.draw(spriteTree);
 
