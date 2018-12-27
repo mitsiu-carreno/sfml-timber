@@ -150,7 +150,9 @@ int main()
     setNewCloudPosition(cloud3, dt);
     
     std::cout << std::endl;
-
+    std::cout << gen_random(0,10) << std::endl;
+    std::cout << gen_random(0,10) << std::endl;
+    std::cout << gen_random(0,10) << std::endl;
     /******************************
      * Draw the scene             *
      ******************************/
