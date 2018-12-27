@@ -9,14 +9,14 @@ void setNewCloudPosition(Cloud &cloud, sf::Time dt)
     if(!cloud.isActive)
     {
         // Set a new scale for the cloud between 1/10 of the screen heigth and 1/20 of the screen height (randomly generated)
-        float newCloudHeight = gen_random(getWindowHeight()*0.001, getWindowHeight()*0.005);
+        float newCloudHeight = gen_random(getWindowHeight()*0.10, getWindowHeight()*0.25);
         cloud.spriteCloud.setScale(
             newCloudHeight/cloud.spriteCloud.getLocalBounds().height,
             newCloudHeight/cloud.spriteCloud.getLocalBounds().height
         );
 
         // How fast the cloud will be
-        cloud.speed = gen_random(50, 150);
+        cloud.speed = gen_random(20, 120);
 
         // How high the cloud will be
         float height = gen_random(0, ((getWindowHeight()*0.45)-cloud.spriteCloud.getGlobalBounds().height));
