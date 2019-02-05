@@ -6,8 +6,10 @@
 
 #include "constants.hpp"
 #include "cloud.hpp"
+#include "bee.hpp"
 #include "random_generator.hpp"
 #include "move_clouds.hpp"
+#include "move_bee.hpp"
 
 using namespace sf;
 
@@ -55,6 +57,14 @@ int main()
   // Prepare the bee
   Texture textureBee;
   textureBee.loadFromFile("resources/graphics/bee.png");
+
+  Bee bee {Sprite()};
+  bee.spriteBee.setTexture(textureBee);
+  bee.spriteBee.setScale(
+    (getWindowHeight()/20)/bee.spriteBee.getLocalBounds().width,
+    (getWindowWidth()/20)/bee.spriteBee.getLocalBounds().width
+  );
+  /*
   Sprite spriteBee;
   spriteBee.setTexture(textureBee);
   spriteBee.setPosition(getWindowWidth()/4,getWindowHeight()/5);
@@ -66,6 +76,7 @@ int main()
   bool beeActive = false;
   // How fast can the bee fly?
   float beeSpeed = 0.0f;
+  */
 
   
   // Prepare the clouds
@@ -114,6 +125,8 @@ int main()
     // Measure time
     Time dt = clock.restart();
 
+    setBeePosition(bee, dt);
+    /*
     // Set up the bee
     if(!beeActive)
     {
@@ -139,6 +152,7 @@ int main()
       }
 
     }
+    */
     // Manage clouds
     setNewCloudPosition(cloud1, dt);
     setNewCloudPosition(cloud2, dt);
@@ -156,7 +170,7 @@ int main()
     window.draw(cloud1.spriteCloud);
     window.draw(cloud2.spriteCloud);
     window.draw(cloud3.spriteCloud);
-    window.draw(spriteBee);
+    window.draw(bee.spriteBee);
     window.draw(spriteTree);
 
     // Show everything we just drew
