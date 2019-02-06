@@ -47,7 +47,7 @@ int main()
   // Scale tree to cover 1/5 of the window width
   spriteTree.setScale(
     (getWindowWidth()/5)/spriteTree.getLocalBounds().width,
-    1);
+    getWindowHeight()/spriteTree.getLocalBounds().height);
   // Center tree (half window - half sprite)
   spriteTree.setPosition(
     (getWindowWidth()/2)-spriteTree.getGlobalBounds().width/2,
