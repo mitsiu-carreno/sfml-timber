@@ -14,11 +14,12 @@ struct Bee
   Point origin;
   int radius = 0;
   float angle = 0.0;
-  float secondsInPath = 0.0;
+  float secondsInPath = 0.0f;
+  float elapsedTimeInPath = 0.0f;
   bool clockWise = true;
 
   bool inPath = false;
-  float speed = 0.5f;    // measured in degrees/second 
+  int speed = 2;    // measured in degrees/second 
 };
 
 

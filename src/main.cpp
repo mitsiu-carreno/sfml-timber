@@ -170,8 +170,8 @@ int main()
     window.draw(cloud1.spriteCloud);
     window.draw(cloud2.spriteCloud);
     window.draw(cloud3.spriteCloud);
-    window.draw(bee.spriteBee);
     window.draw(spriteTree);
+    window.draw(bee.spriteBee);
 
     // Show everything we just drew
     window.display();
