@@ -25,7 +25,7 @@ void setBeePosition(Bee &bee, sf::Time dt)
     bee.radius = gen_random(40, minAxisOrigin < 100? minAxisOrigin : 100);
     // Mirror angle to spin in change direction of spining
     //bee.angle = bee.angle - 180;
-    bee.secondsInPath = gen_random(2,6);
+    bee.secondsInPath = gen_random(2,4);
     // Toggle direction to spin 
     bee.clockWise = !bee.clockWise;
     bee.inPath = true;
