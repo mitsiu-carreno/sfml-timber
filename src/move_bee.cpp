@@ -5,7 +5,13 @@
 
 #include "bee.hpp"
 
+float getRadians(float degrees){
+  return degrees*3.14159/180;
+}
+
 float getXCircunference(Bee &bee){
+  return bee.origin.x + (bee.radius * cos(getRadians(bee.angle)));
+  /*
   float x;
   if(bee.angle == 180){
     x = bee.origin.x + (bee.radius * -1);
@@ -13,9 +19,12 @@ float getXCircunference(Bee &bee){
     x = bee.origin.x + (bee.radius * cos(bee.angle));
   }
   return x;
+  */
 }
 
 float getYCircunference(Bee &bee){
+  return bee.origin.y + (bee.radius * sin(getRadians(bee.angle)));
+  /*
   float y;
   if(bee.angle == 180){
     y = bee.origin.y;
@@ -24,6 +33,7 @@ float getYCircunference(Bee &bee){
     y = bee.origin.y + (bee.radius * sin(bee.angle));
   } 
   return y; 
+  */
 }
 
 void setBeePosition(Bee &bee){
@@ -43,28 +53,24 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     bee.origin.y = getYCircunference(bee);
 
     // ----Fix later to limit on screen dimentions
-    bee.radius = 100;
-    //bee.radius = gen_random(200, 500);
+    //bee.radius = 100;
+    bee.radius = gen_random(200, 500);
 
     // New circle center is at current bee position (temporarly)
     bee.origin.x = getXCircunference(bee);
     bee.origin.y = getYCircunference(bee);
 
+    // Modify slightly angle to produce non-perfect waves
+    bee.angle += gen_random(-10,10);
     //Invert angle 
-    //std::cout << "old angle " << bee.angle << std::endl;
     //bee.angle = bee.angle + 180;
     if(bee.clockWise){
-      bee.angle -= 163;
+      bee.angle -= 180;
     }
     else
     {
-      bee.angle += 163;
+      bee.angle += 180;
     }
-
-    std::cout << sin(180) << cos(180) << std::endl;
-    
-    //Modify slightly angle to produce non-perfect waves
-    //bee.angle += gen_random(-10,10);
 
     circle.setRadius(bee.radius);
     circle.setOrigin(circle.getRadius(), circle.getRadius());
@@ -75,7 +81,7 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     // Toggle direction to spin 
     bee.elapsedTimeInPath = 0.0f;
     bee.clockWise = !bee.clockWise;
-    bee.secondsInPath = 2.9;
+    bee.secondsInPath = gen_random(1,4);
     bee.inPath = true;
 
     setBeePosition(bee);
@@ -87,10 +93,8 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
       setBeePosition(bee);
       if(bee.clockWise){
         bee.angle -= dt.asSeconds() * bee.speed;
-        //bee.angle += 0.001;
       }else{
         bee.angle += dt.asSeconds() * bee.speed;
-        //bee.angle -= 0.001;
       }
     }else{
       bee.inPath = false;

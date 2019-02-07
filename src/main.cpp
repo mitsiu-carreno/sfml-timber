@@ -181,7 +181,7 @@ int main()
     window.draw(cloud2.spriteCloud);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
-    window.draw(circle);
+    //window.draw(circle);
     window.draw(bee.spriteBee);
     window.draw(point);
     window.draw(center);

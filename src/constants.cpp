@@ -4,8 +4,8 @@ struct WindowSize{
 };
 
 //Variable with size widow for all the scales and sizes calculations
-static WindowSize windowSize = {1280, 800};
-//static WindowSize windowSize = {3840, 2160};
+//static WindowSize windowSize = {1280, 800};
+static WindowSize windowSize = {3840, 2160};
 
 // Encapsulate access to var
 int getWindowHeight(){
