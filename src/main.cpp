@@ -64,6 +64,12 @@ int main()
     (getWindowHeight()/20)/bee.spriteBee.getLocalBounds().width,
     (getWindowWidth()/20)/bee.spriteBee.getLocalBounds().width
   );
+
+  sf::CircleShape circle;
+  sf::CircleShape point;
+  point.setRadius(1);
+  point.setOutlineColor(sf::Color::Green);
+  point.setOutlineThickness(1);
   /*
   Sprite spriteBee;
   spriteBee.setTexture(textureBee);
@@ -125,7 +131,7 @@ int main()
     // Measure time
     Time dt = clock.restart();
 
-    setBeePosition(bee, dt);
+    setBeePosition(bee, dt, circle, point);
     /*
     // Set up the bee
     if(!beeActive)
@@ -171,7 +177,9 @@ int main()
     window.draw(cloud2.spriteCloud);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
+    window.draw(circle);
     window.draw(bee.spriteBee);
+    window.draw(point);
 
     // Show everything we just drew
     window.display();

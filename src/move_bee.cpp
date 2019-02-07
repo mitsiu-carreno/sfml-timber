@@ -13,15 +13,19 @@ float getYCircunference(Bee &bee){
   return bee.origin.y + (bee.radius * sin(bee.angle));
 }
 
-void setBeePosition(Bee &bee, sf::Time dt)
+void setBeePosition(Bee &bee){
+  bee.spriteBee.setPosition(
+    getXCircunference(bee) + bee.spriteBee.getGlobalBounds().width/2,
+    getYCircunference(bee) + bee.spriteBee.getGlobalBounds().height/2
+  );
+}
+
+void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleShape &point)
 {
   // Set a new circle center and seconds to spend in path
   if(!bee.inPath)
   { 
-    bee.spriteBee.setPosition(
-        getXCircunference(bee),
-        getYCircunference(bee)
-    );
+    setBeePosition(bee);
     std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << std::endl;
     
     // New circle center is at current bee position (temporarly)
@@ -70,6 +74,12 @@ void setBeePosition(Bee &bee, sf::Time dt)
     */
     std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
 
+    
+    circle.setRadius(bee.radius);
+    circle.setOutlineColor(sf::Color::Red);
+    //circle.setOutlineThickness(5);
+    circle.setPosition(bee.origin.x, bee.origin.y);
+    point.setPosition(getXCircunference(bee), getYCircunference(bee));
 
   } 
   else
@@ -78,25 +88,25 @@ void setBeePosition(Bee &bee, sf::Time dt)
     // This condition is wrong
     if(bee.elapsedTimeInPath < bee.secondsInPath){
       //std::cout << "update bee on angle " << bee.angle;
-      bee.spriteBee.setPosition(
-        getXCircunference(bee),
-        getYCircunference(bee)
-      ); 
+      setBeePosition(bee);
+
+      circle.setRadius(bee.radius);
+    circle.setOutlineColor(sf::Color::Red);
+    //circle.setOutlineThickness(5);
+    circle.setPosition(bee.origin.x, bee.origin.y);
+    point.setPosition(getXCircunference(bee), getYCircunference(bee));
 
       if(bee.clockWise){
         //bee.angle += dt.asSeconds() * bee.speed;
-        bee.angle += 0.01;
+        bee.angle += 0.005;
       }else{
         //bee.angle -= dt.asSeconds() * bee.speed;
-        bee.angle -= 0.01;
+        bee.angle -= 0.005;
       }
       
 
     }else{
-      bee.spriteBee.setPosition(
-        getXCircunference(bee),
-        getYCircunference(bee)
-    );
+      setBeePosition(bee);
       std::cout<< "last calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
       bee.elapsedTimeInPath = 0.0f;
       bee.inPath = false;
