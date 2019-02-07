@@ -6,11 +6,24 @@
 #include "bee.hpp"
 
 float getXCircunference(Bee &bee){
-  return bee.origin.x + (bee.radius * cos(bee.angle));
+  float x;
+  if(bee.angle == 180){
+    x = bee.origin.x + (bee.radius * -1);
+  }else{
+    x = bee.origin.x + (bee.radius * cos(bee.angle));
+  }
+  return x;
 }
 
 float getYCircunference(Bee &bee){
-  return bee.origin.y + (bee.radius * sin(bee.angle));
+  float y;
+  if(bee.angle == 180){
+    y = bee.origin.y;
+  }
+  else{
+    y = bee.origin.y + (bee.radius * sin(bee.angle));
+  } 
+  return y; 
 }
 
 void setBeePosition(Bee &bee){
@@ -25,19 +38,63 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
   if(!bee.inPath)
   {
     std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
+
+    bee.origin.x = getXCircunference(bee);
+    bee.origin.y = getYCircunference(bee);
+
+    // ----Fix later to limit on screen dimentions
+    bee.radius = 100;
+    //bee.radius = gen_random(200, 500);
+
+    // New circle center is at current bee position (temporarly)
+    bee.origin.x = getXCircunference(bee);
+    bee.origin.y = getYCircunference(bee);
+
+    //Invert angle 
+    //std::cout << "old angle " << bee.angle << std::endl;
+    //bee.angle = bee.angle + 180;
+    if(bee.clockWise){
+      bee.angle -= 163;
+    }
+    else
+    {
+      bee.angle += 163;
+    }
+
+    std::cout << sin(180) << cos(180) << std::endl;
+    
+    //Modify slightly angle to produce non-perfect waves
+    //bee.angle += gen_random(-10,10);
+
     circle.setRadius(bee.radius);
     circle.setOrigin(circle.getRadius(), circle.getRadius());
     circle.setPosition(bee.origin.x, bee.origin.y);
-    setBeePosition(bee);
     center.setPosition(bee.origin.x, bee.origin.y);
     point.setPosition(getXCircunference(bee), getYCircunference(bee));
 
+    // Toggle direction to spin 
+    bee.elapsedTimeInPath = 0.0f;
+    bee.clockWise = !bee.clockWise;
+    bee.secondsInPath = 2.9;
     bee.inPath = true;
+
+    setBeePosition(bee);
   }
   else
   {
-    setBeePosition(bee);
-    bee.angle += dt.asSeconds() * bee.speed;
+    bee.elapsedTimeInPath += dt.asSeconds();
+    if(bee.elapsedTimeInPath < bee.secondsInPath){
+      setBeePosition(bee);
+      if(bee.clockWise){
+        bee.angle -= dt.asSeconds() * bee.speed;
+        //bee.angle += 0.001;
+      }else{
+        bee.angle += dt.asSeconds() * bee.speed;
+        //bee.angle -= 0.001;
+      }
+    }else{
+      bee.inPath = false;
+    }
   }
 }
 

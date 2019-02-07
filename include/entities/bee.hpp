@@ -19,7 +19,7 @@ struct Bee
   bool clockWise = true;
 
   bool inPath = false;
-  float speed = 0.9;    // measured in degrees/second 
+  float speed = 1;    // measured in degrees/second 
 };
 
 
