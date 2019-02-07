@@ -68,8 +68,12 @@ int main()
   sf::CircleShape circle;
   sf::CircleShape point;
   point.setRadius(1);
-  point.setOutlineColor(sf::Color::Green);
+  point.setOutlineColor(sf::Color::Blue);
   point.setOutlineThickness(1);
+  sf::CircleShape center;
+  center.setRadius(1);
+  center.setOutlineColor(sf::Color::Red);
+  center.setOutlineThickness(1);
   /*
   Sprite spriteBee;
   spriteBee.setTexture(textureBee);
@@ -131,7 +135,7 @@ int main()
     // Measure time
     Time dt = clock.restart();
 
-    setBeePosition(bee, dt, circle, point);
+    setBeePosition(bee, dt, circle, point, center);
     /*
     // Set up the bee
     if(!beeActive)
@@ -180,6 +184,7 @@ int main()
     window.draw(circle);
     window.draw(bee.spriteBee);
     window.draw(point);
+    window.draw(center);
 
     // Show everything we just drew
     window.display();

@@ -3,6 +3,6 @@
 
 #include "bee.hpp"
 
-void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleShape &point);
+void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleShape &point, sf::CircleShape &center);
 
 #endif
