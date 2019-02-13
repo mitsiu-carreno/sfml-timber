@@ -35,6 +35,8 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
 
     // ----Fix later to limit on screen dimentions
     bee.radius = gen_random(getWindowWidth()/15, getWindowWidth()/7);
+    bee.timePerRevolution = (2 * constants::PI_C * bee.radius)/bee.speed;
+    bee.angularSpeed = (2 * constants::PI_C)/bee.timePerRevolution;
 
     // New circle center is at current bee position (temporarly)
     bee.origin.x = getXCircunference(bee);
@@ -45,11 +47,11 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     
     //Invert angle 
     if(bee.clockWise){
-      bee.angle -= 180;
+      bee.angle -= 179;
     }
     else
     {
-      bee.angle += 180;
+      bee.angle += 181;
     }
 
     circle.setRadius(bee.radius);
@@ -72,9 +74,9 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     if(bee.elapsedTimeInPath < bee.secondsInPath){
       setBeeSpritePosition(bee);
       if(bee.clockWise){
-        bee.angle -= dt.asSeconds() * bee.speed;
+        bee.angle -= dt.asSeconds() * bee.angularSpeed;
       }else{
-        bee.angle += dt.asSeconds() * bee.speed;
+        bee.angle += dt.asSeconds() * bee.angularSpeed;
       }
     }else{
       bee.inPath = false;
