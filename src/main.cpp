@@ -131,6 +131,27 @@ setWindowHeight(modes[0].height);
       {
         window.close();
       }
+
+      // Move left: cut left
+      if(Keyboard::isKeyPressed(Keyboard::Left))
+      {
+        std::cout << "left pressed" << std::endl;
+      }
+
+      // Joystick connected
+      if(Joystick::isConnected(0)){
+        // Check how many buttons joystick number 0 has
+        unsigned int buttonCount = Joystick::getButtonCount(0);
+        std::cout << buttonCount << " buttons detected on joystick\n";
+
+        // Check if joystick number 0 has a Z axis
+        bool hasZ = Joystick::hasAxis(0, Joystick::Z);
+        std::cout << "Z axis: " << hasZ << std::endl;
+
+        float x = Joystick::getAxisPosition(0, Joystick::X);
+        float y = Joystick::getAxisPosition(0, Joystick::Y);
+        std::cout << "x: " << x << " y: " << y << std::endl;
+      }
     }
  
 
