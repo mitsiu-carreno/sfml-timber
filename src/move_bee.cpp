@@ -54,7 +54,7 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
 
     // ----Fix later to limit on screen dimentions
     //bee.radius = 100;
-    bee.radius = gen_random(200, 500);
+    bee.radius = gen_random(getWindowWidth()/15, getWindowWidth()/7);
 
     // New circle center is at current bee position (temporarly)
     bee.origin.x = getXCircunference(bee);

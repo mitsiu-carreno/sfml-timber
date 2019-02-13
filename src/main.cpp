@@ -16,6 +16,12 @@ using namespace sf;
 int main()
 {
 
+  // Display the list of all the video modes available for fullscreen
+std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
+
+setWindowWidth(modes[0].width);
+setWindowHeight(modes[0].height);
+
   // Create a video mode object
   VideoMode video(getWindowWidth(), getWindowHeight());
   //VideoMode video(640, 480);
