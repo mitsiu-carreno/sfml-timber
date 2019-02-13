@@ -138,6 +138,7 @@ setWindowHeight(modes[0].height);
         std::cout << "left pressed" << std::endl;
       }
 
+      // https://pushbuttonreceivecode.com/blog/working-with-joysticks-in-sfml
       // Joystick connected
       if(Joystick::isConnected(0)){
         // Check how many buttons joystick number 0 has
