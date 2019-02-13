@@ -6,7 +6,7 @@
 #include "bee.hpp"
 
 float getRadians(float degrees){
-  return degrees*3.14159/180;
+  return (degrees * constants::PI_C) /180;
 }
 
 float getXCircunference(Bee &bee){
