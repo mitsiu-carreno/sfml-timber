@@ -16,10 +16,10 @@ struct Bee
   float angle = 0.0;
   float secondsInPath = 0.0f;
   float elapsedTimeInPath = 0.0f;
-  bool clockWise = true;
+  bool clockWise = false;
 
   bool inPath = false;
-  float speed = 10005;    // measured in pixels/second 
+  int speed = 700;    // measured in pixels/second 
   float timePerRevolution = 0;
   float angularSpeed = 0;
 };

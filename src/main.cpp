@@ -80,19 +80,6 @@ setWindowHeight(modes[0].height);
   center.setRadius(1);
   center.setOutlineColor(sf::Color::Red);
   center.setOutlineThickness(1);
-  /*
-  Sprite spriteBee;
-  spriteBee.setTexture(textureBee);
-  spriteBee.setPosition(getWindowWidth()/4,getWindowHeight()/5);
-  spriteBee.setScale(
-    (getWindowWidth()/20)/spriteBee.getLocalBounds().width,
-    (getWindowWidth()/20)/spriteBee.getLocalBounds().width
-  );
-  // Is the bee currently movinb
-  bool beeActive = false;
-  // How fast can the bee fly?
-  float beeSpeed = 0.0f;
-  */
 
   
   // Prepare the clouds
@@ -164,33 +151,7 @@ setWindowHeight(modes[0].height);
     Time dt = clock.restart();
 
     setBeePosition(bee, dt, circle, point, center);
-    /*
-    // Set up the bee
-    if(!beeActive)
-    {
-      // How fast is the bee
-      beeSpeed = gen_random(200,400);
-      
-      // How high is the bee
-      float height = gen_random(500, getWindowHeight());
-      spriteBee.setPosition(getWindowWidth()/4, height);
-      beeActive = true;
-    } else 
-    {
-      // Move the bee
-      spriteBee.setPosition(
-        spriteBee.getPosition().x - (beeSpeed * dt.asSeconds()),
-        spriteBee.getPosition().y
-      );
-
-      // Has the bee reached the right hand edge of the screen?
-      if(spriteBee.getPosition().x < -100){
-        // Set it up ready to be a whole new cloud next frame
-        beeActive = false;
-      }
-
-    }
-    */
+    
     // Manage clouds
     setNewCloudPosition(cloud1, dt);
     setNewCloudPosition(cloud2, dt);

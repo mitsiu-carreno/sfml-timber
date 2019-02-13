@@ -28,30 +28,30 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
 {
   if(!bee.inPath)
   {
-    std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
+    //std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
 
     bee.origin.x = getXCircunference(bee);
     bee.origin.y = getYCircunference(bee);
 
     // ----Fix later to limit on screen dimentions
-    bee.radius = gen_random(getWindowWidth()/15, getWindowWidth()/7);
+    bee.radius = gen_random(getWindowWidth()/17, getWindowWidth()/10);
     bee.timePerRevolution = (2 * constants::PI_C * bee.radius)/bee.speed;
-    bee.angularSpeed = (2 * constants::PI_C)/bee.timePerRevolution;
+    bee.angularSpeed = constants::totalDegrees/bee.timePerRevolution;
 
     // New circle center is at current bee position (temporarly)
     bee.origin.x = getXCircunference(bee);
     bee.origin.y = getYCircunference(bee);
 
     // Modify slightly angle to produce non-perfect waves
-    bee.angle += gen_random(-15,15);
+    //bee.angle += gen_random(-15,15);
     
     //Invert angle 
     if(bee.clockWise){
-      bee.angle -= 179;
+      bee.angle -= 180;
     }
     else
     {
-      bee.angle += 181;
+      bee.angle += 180;
     }
 
     circle.setRadius(bee.radius);
@@ -66,6 +66,7 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     bee.secondsInPath = gen_random(1,4);
     bee.inPath = true;
 
+    std::cout << " radius: " << bee.radius << " angle : " << bee.angle << " angular speed: " << bee.angularSpeed << " timePerRev: "<< bee.timePerRevolution <<  " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
     setBeeSpritePosition(bee);
   }
   else

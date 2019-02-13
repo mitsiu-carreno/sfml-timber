@@ -3,6 +3,7 @@
 
 namespace constants{
   constexpr double PI_C = 3.14159265358979323846;
+  constexpr int totalDegrees = 360;
 };
 
 
