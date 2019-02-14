@@ -2,6 +2,7 @@
 #define BEE_H
 
 #include <SFML/Graphics.hpp>
+#include "constants.hpp"
 
 struct Point{
   float x = 0.0;
@@ -19,7 +20,7 @@ struct Bee
   bool clockWise = false;
 
   bool inPath = false;
-  int speed = 700;    // measured in pixels/second 
+  const int speed = getWindowWidth()/5;    // measured in pixels/second 
   float timePerRevolution = 0;
   float angularSpeed = 0;
 };
