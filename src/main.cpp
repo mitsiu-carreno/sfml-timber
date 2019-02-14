@@ -64,7 +64,7 @@ setWindowHeight(modes[0].height);
   Texture textureBee;
   textureBee.loadFromFile("resources/graphics/bee.png");
 
-  Bee bee {Sprite(),{static_cast<float>(getWindowWidth()),static_cast<float>(getWindowHeight())}};
+  Bee bee {Sprite(),{static_cast<float>(getWindowWidth()/2),static_cast<float>(getWindowHeight()/2)}};
   bee.spriteBee.setTexture(textureBee);
   bee.spriteBee.setScale(
     (getWindowHeight()/20)/bee.spriteBee.getLocalBounds().width,

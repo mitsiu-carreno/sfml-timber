@@ -20,7 +20,7 @@ struct Bee
   bool clockWise = false;
 
   bool inPath = false;
-  const int speed = getWindowWidth()/5;    // measured in pixels/second 
+  const int speed = getWindowWidth()/7;    // measured in pixels/second 
   float timePerRevolution = 0;
   float angularSpeed = 0;
 };
