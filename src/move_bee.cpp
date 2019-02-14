@@ -1,7 +1,7 @@
 #include <iostream>
 #include <math.h>
 #include "random_generator.hpp"
-#include "constants.hpp"
+//#include "constants.hpp"
 
 #include "bee.hpp"
 
