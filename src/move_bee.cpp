@@ -60,30 +60,30 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     if(bee.origin.x - bee.radius > getWindowWidth())
     {
       std::cout << "fix right 80º\n";
-      bee.origin.x = getWindowWidth() + 5;
-      bee.angle = constants::totalDegrees/4 - 15;   
+      bee.origin.x = getWindowWidth() + bee.radius + bee.spriteBee.getGlobalBounds().width;
+      //bee.angle = constants::totalDegrees/4 - 15;   
     }
     //Bee gone left corner
     if(bee.origin.x + bee.radius < 0)
     {
       std::cout << "fix left 260º\n";
-      bee.origin.x = -5;
-      bee.angle = constants::totalDegrees/2 + constants::totalDegrees/4 - 15;
+      bee.origin.x = -bee.radius - bee.spriteBee.getGlobalBounds().width;
+      //bee.angle = constants::totalDegrees/2 + constants::totalDegrees/4 - 15;
     }
 
     //Bee gone bottom corner
     if(bee.origin.y - bee.radius > getWindowHeight())
     {
       std::cout << "fix bottom 350º\n";
-      bee.origin.y = getWindowHeight() + 5;
-      bee.angle = constants::totalDegrees  - 15;
+      bee.origin.y = getWindowHeight() + bee.radius + bee.spriteBee.getGlobalBounds().height;
+      //bee.angle = constants::totalDegrees  - 15;
     } 
     //Bee gone top corner
     if(bee.origin.y + bee.radius < 0)
     {
       std::cout << "fix top 170\n";
-      bee.origin.y = -5;
-      bee.angle = constants::totalDegrees/2  - 15;
+      bee.origin.y = -bee.radius - bee.spriteBee.getGlobalBounds().height;
+      //bee.angle = constants::totalDegrees/2  - 15;
     }
 
     circle.setRadius(bee.radius);
