@@ -71,17 +71,6 @@ setWindowHeight(modes[0].height);
     (getWindowWidth()/20)/bee.spriteBee.getLocalBounds().width
   );
 
-  sf::CircleShape circle;
-  sf::CircleShape point;
-  point.setRadius(1);
-  point.setOutlineColor(sf::Color::Blue);
-  point.setOutlineThickness(1);
-  sf::CircleShape center;
-  center.setRadius(1);
-  center.setOutlineColor(sf::Color::Red);
-  center.setOutlineThickness(1);
-
-  
   // Prepare the clouds
   // Make 3 cloud sprites from 1 texture
   Texture textureCloud;
@@ -150,7 +139,7 @@ setWindowHeight(modes[0].height);
     // Measure time
     Time dt = clock.restart();
 
-    setBeePosition(bee, dt, circle, point, center);
+    calcBeePosition(bee, dt);
     
     // Manage clouds
     setNewCloudPosition(cloud1, dt);
@@ -170,10 +159,7 @@ setWindowHeight(modes[0].height);
     window.draw(cloud2.spriteCloud);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
-    //window.draw(circle);
     window.draw(bee.spriteBee);
-    window.draw(point);
-    window.draw(center);
 
     // Show everything we just drew
     window.display();

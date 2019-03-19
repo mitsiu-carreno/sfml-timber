@@ -5,18 +5,22 @@
 
 #include "bee.hpp"
 
+// Convert from degrees to radians
 float getRadians(float degrees){
   return (degrees * constants::PI_C) /180;
 }
 
+// Get the position in X axis given a radious and an angle
 float getXCircunference(Bee &bee){
   return bee.origin.x + (bee.radius * cos(getRadians(bee.angle)));
 }
 
+// Get the position in Y axis given a radious and an angle
 float getYCircunference(Bee &bee){
   return bee.origin.y + (bee.radius * sin(getRadians(bee.angle)));
 }
 
+// Settter of sprite position
 void setBeeSpritePosition(Bee &bee){
   bee.spriteBee.setPosition(
     getXCircunference(bee) - bee.spriteBee.getGlobalBounds().width/2,
@@ -24,22 +28,26 @@ void setBeeSpritePosition(Bee &bee){
   );
 }
 
-void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleShape &point, sf::CircleShape &center)
+
+void calcBeePosition(Bee &bee, sf::Time dt)
 {
   if(!bee.inPath)
   {
 
-    //std::cout << "origin: " << bee.origin.x << "," << bee.origin.y << " radius: " << bee.radius << " angle : " << bee.angle << " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
     // New circle center is at current bee position (temporarly)
     bee.origin.x = getXCircunference(bee);
     bee.origin.y = getYCircunference(bee);
 
-    // ----Fix later to limit on screen dimentions
+    // Generate new radius for new circle
     bee.radius = gen_random(getWindowWidth()/20, getWindowWidth()/10);
+    
+    // As new circle has new radius, and the rotation speed must be equal so bee keeps constant speed
+    // We calculate how much time a revolution will take given a (fixed) bee.speed
     bee.timePerRevolution = (2 * constants::PI_C * bee.radius)/bee.speed;
+    // Once we have the time for a revolution, we calculate the angular speed so rotation keeps constant speed
     bee.angularSpeed = constants::totalDegrees/bee.timePerRevolution;
 
-    
+    // The real circle center based on the new radious and current angle
     bee.origin.x = getXCircunference(bee);
     bee.origin.y = getYCircunference(bee);
 
@@ -59,40 +67,26 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
     // Bee gone right corner
     if(bee.origin.x - bee.radius > getWindowWidth())
     {
-      std::cout << "fix right 80º\n";
       bee.origin.x = getWindowWidth() + bee.radius + bee.spriteBee.getGlobalBounds().width;
-      //bee.angle = constants::totalDegrees/4 - 15;   
     }
     //Bee gone left corner
     if(bee.origin.x + bee.radius < 0)
     {
-      std::cout << "fix left 260º\n";
       bee.origin.x = -bee.radius - bee.spriteBee.getGlobalBounds().width;
-      //bee.angle = constants::totalDegrees/2 + constants::totalDegrees/4 - 15;
     }
 
     //Bee gone bottom corner
     if(bee.origin.y - bee.radius > getWindowHeight())
     {
-      std::cout << "fix bottom 350º\n";
       bee.origin.y = getWindowHeight() + bee.radius + bee.spriteBee.getGlobalBounds().height;
-      //bee.angle = constants::totalDegrees  - 15;
     } 
     //Bee gone top corner
     if(bee.origin.y + bee.radius < 0)
     {
-      std::cout << "fix top 170\n";
       bee.origin.y = -bee.radius - bee.spriteBee.getGlobalBounds().height;
-      //bee.angle = constants::totalDegrees/2  - 15;
     }
 
-    circle.setRadius(bee.radius);
-    circle.setOrigin(circle.getRadius(), circle.getRadius());
-    circle.setPosition(bee.origin.x, bee.origin.y);
-    center.setPosition(bee.origin.x, bee.origin.y);
-    point.setPosition(getXCircunference(bee), getYCircunference(bee));
-
-    // Toggle direction to spin 
+    // Initialize variables for duration in circle and direction 
     bee.elapsedTimeInPath = 0.0f;
     bee.clockWise = !bee.clockWise;
     bee.secondsInPath = gen_random(1,4);
@@ -103,6 +97,7 @@ void setBeePosition(Bee &bee, sf::Time dt, sf::CircleShape &circle, sf::CircleSh
   }
   else
   {
+    // Check if bee must continue in current circle or needs new one
     bee.elapsedTimeInPath += dt.asSeconds();
     if(bee.elapsedTimeInPath < bee.secondsInPath){
       setBeeSpritePosition(bee);
