@@ -92,6 +92,16 @@ void calcBeePosition(Bee &bee, sf::Time dt)
     bee.secondsInPath = gen_random(1,4);
     bee.inPath = true;
 
+    // Invert bee to point at the direction it is going
+    if(bee.clockWise)
+    {
+      // Check the cuadrant of the angle (radians is easier)
+      //if(bee.angle <)
+    }else{
+      // Check the cuadrant of the angle (radians is easier)
+    }
+    bee.spriteBee.setScale(-bee.spriteBee.getScale().x, bee.spriteBee.getScale().y);
+
     std::cout << " radius: " << bee.radius << " angle : " << bee.angle << " angular speed: " << bee.angularSpeed << " timePerRev: "<< bee.timePerRevolution <<  " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
     setBeeSpritePosition(bee);
   }
