@@ -3,6 +3,6 @@
 
 #include "bee.hpp"
 
-void calcBeePosition(Bee &bee, sf::Time dt);
+void calcBeePosition(Bee &bee, sf::Time dt, sf::Text &text);
 
 #endif

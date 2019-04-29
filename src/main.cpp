@@ -71,6 +71,12 @@ setWindowHeight(modes[0].height);
     (getWindowWidth()/20)/bee.spriteBee.getLocalBounds().width
   );
 
+  sf::Font font;
+  font.loadFromFile("resources/fonts/KOMIKAP_.ttf");
+  Text text;
+  text.setFont(font);
+  text.setFillColor(sf::Color::Green);
+
   // Prepare the clouds
   // Make 3 cloud sprites from 1 texture
   Texture textureCloud;
@@ -139,7 +145,7 @@ setWindowHeight(modes[0].height);
     // Measure time
     Time dt = clock.restart();
 
-    calcBeePosition(bee, dt);
+    calcBeePosition(bee, dt, text);
     
     // Manage clouds
     setNewCloudPosition(cloud1, dt);
@@ -160,6 +166,7 @@ setWindowHeight(modes[0].height);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
     window.draw(bee.spriteBee);
+    window.draw(text);
 
     // Show everything we just drew
     window.display();
