@@ -113,6 +113,7 @@ void calcBeePosition(Bee &bee, sf::Time dt)
       if(bee.clockWise){
         bee.angle -= dt.asSeconds() * bee.angularSpeed;
         
+        std::cout << "cuadrant " <<  getCuadrant(bee) << " scale : " << bee.spriteBee.getScale().x << std::endl;
         // Invert bee to point at the direction it is going
         if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x > 0 ){
           bee.spriteBee.setScale(
@@ -123,7 +124,7 @@ void calcBeePosition(Bee &bee, sf::Time dt)
             bee.spriteBee.getPosition().x + bee.spriteBee.getGlobalBounds().width,
             bee.spriteBee.getPosition().y
           );
-        }else if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x > 0) {
+        }else if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x < 0) {
           bee.spriteBee.setScale(
             -1 * bee.spriteBee.getScale().x,
             bee.spriteBee.getScale().y
