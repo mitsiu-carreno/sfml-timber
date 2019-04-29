@@ -28,6 +28,15 @@ void setBeeSpritePosition(Bee &bee){
   );
 }
 
+int  getCuadrant(Bee &bee){
+  int angleBounded = static_cast<int>(bee.angle)%constants::totalDegrees;
+
+  if(angleBounded < 0){
+    angleBounded += constants::totalDegrees;
+  }
+  return static_cast<int>(angleBounded/90) % 4 + 1;
+}
+
 
 void calcBeePosition(Bee &bee, sf::Time dt)
 {
@@ -92,16 +101,6 @@ void calcBeePosition(Bee &bee, sf::Time dt)
     bee.secondsInPath = gen_random(1,4);
     bee.inPath = true;
 
-    // Invert bee to point at the direction it is going
-    if(bee.clockWise)
-    {
-      // Check the cuadrant of the angle (radians is easier)
-      //if(bee.angle <)
-    }else{
-      // Check the cuadrant of the angle (radians is easier)
-    }
-    bee.spriteBee.setScale(-bee.spriteBee.getScale().x, bee.spriteBee.getScale().y);
-
     std::cout << " radius: " << bee.radius << " angle : " << bee.angle << " angular speed: " << bee.angularSpeed << " timePerRev: "<< bee.timePerRevolution <<  " calc bee position: " << getXCircunference(bee) << "," << getYCircunference(bee) << " real bee position: " << bee.spriteBee.getPosition().x << "," << bee.spriteBee.getPosition().y << "\n\n\n";
     setBeeSpritePosition(bee);
   }
@@ -113,6 +112,27 @@ void calcBeePosition(Bee &bee, sf::Time dt)
       setBeeSpritePosition(bee);
       if(bee.clockWise){
         bee.angle -= dt.asSeconds() * bee.angularSpeed;
+        
+        // Invert bee to point at the direction it is going
+        if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x > 0 ){
+          bee.spriteBee.setScale(
+            -1 * bee.spriteBee.getScale().x,
+            bee.spriteBee.getScale().y
+          );
+          bee.spriteBee.setPosition(
+            bee.spriteBee.getPosition().x + bee.spriteBee.getGlobalBounds().width,
+            bee.spriteBee.getPosition().y
+          );
+        }else if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x > 0) {
+          bee.spriteBee.setScale(
+            -1 * bee.spriteBee.getScale().x,
+            bee.spriteBee.getScale().y
+          );
+          bee.spriteBee.setPosition(
+            bee.spriteBee.getPosition().x - bee.spriteBee.getGlobalBounds().width,
+            bee.spriteBee.getPosition().y
+          );
+        }
       }else{
         bee.angle += dt.asSeconds() * bee.angularSpeed;
       }
