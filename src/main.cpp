@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <stdlib.h> //sleep
 #include <iostream>
+#include <string>
 
 #include "constants.hpp"
 #include "cloud.hpp"
@@ -89,7 +90,32 @@ setWindowHeight(modes[0].height);
   Clock clock; 
 
   // Pause / Unpause game
-  bool pause = true;
+  bool pause = false;
+  
+  // HUD variables
+  // Load font
+  Font font;
+  font.loadFromFile("resources/fonts/KOMIKAP_.ttf");
+
+  //int score = 0;
+  Text messageText;
+  Text messageScore;
+  
+  messageText.setFont(font);
+  messageScore.setFont(font);
+  messageText.setString("Press Enter to start!");
+  messageScore.setString("Score: ");
+  messageText.setCharacterSize(getWindowWidth()/50);
+  messageScore.setCharacterSize(getWindowWidth()/70);
+  messageText.setFillColor(Color::Yellow);
+  messageScore.setFillColor(Color::Red);
+  
+  //Position the HUD
+  messageText.setOrigin(messageText.getLocalBounds().width/2,messageText.getLocalBounds().height/2);
+  messageText.setPosition(getWindowWidth()/2,getWindowHeight()/2);
+  messageScore.setPosition(getWindowWidth()/15,getWindowHeight()/15);
+
+
 
   while(window.isOpen())
   {
@@ -175,6 +201,9 @@ setWindowHeight(modes[0].height);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
     window.draw(bee.spriteBee);
+
+    window.draw(messageText);
+    window.draw(messageScore);
 
     // Show everything we just drew
     window.display();
