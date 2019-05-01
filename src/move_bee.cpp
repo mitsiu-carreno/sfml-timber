@@ -28,27 +28,27 @@ void setBeeSpritePosition(Bee &bee){
   );
 }
 
-//int  getCuadrant(Bee &bee){
-//  int angleBounded = static_cast<int>(bee.angle)%constants::totalDegrees;
-//
-//  if(angleBounded < 0){
-//    angleBounded += constants::totalDegrees;
-//  }
-//  return static_cast<int>(angleBounded/90) % 4 + 1;
-//}
+int  getCuadrant(Bee &bee){
+  int angleBounded = static_cast<int>(bee.angle)%constants::totalDegrees;
 
-//void invertBeeSprite(Bee &bee, bool invert){
-//  bee.spriteBee.setScale(
-//    -1 * bee.spriteBee.getScale().x,
-//    bee.spriteBee.getScale().y
-//  );
-//  bee.spriteBee.setPosition(
-//    invert ? bee.spriteBee.getPosition().x + bee.spriteBee.getGlobalBounds().width : bee.spriteBee.getPosition().x - bee.spriteBee.getGlobalBounds().width,
-//    bee.spriteBee.getPosition().y
-//  );
-//}
+  if(angleBounded < 0){
+    angleBounded += constants::totalDegrees;
+  }
+  return static_cast<int>(angleBounded/90) % 4 + 1;
+}
 
-void calcBeePosition(Bee &bee, sf::Time dt, sf::Text &text)
+void invertBeeSprite(Bee &bee, bool invert){
+  bee.spriteBee.setScale(
+    -1 * bee.spriteBee.getScale().x,
+    bee.spriteBee.getScale().y
+  );
+  bee.spriteBee.setPosition(
+    invert ? bee.spriteBee.getPosition().x + bee.spriteBee.getGlobalBounds().width : bee.spriteBee.getPosition().x - bee.spriteBee.getGlobalBounds().width,
+    bee.spriteBee.getPosition().y
+  );
+}
+
+void calcBeePosition(Bee &bee, sf::Time dt)
 {
   if(!bee.inPath)
   {
@@ -121,25 +121,23 @@ void calcBeePosition(Bee &bee, sf::Time dt, sf::Text &text)
     if(bee.elapsedTimeInPath < bee.secondsInPath){
       setBeeSpritePosition(bee);
       if(bee.clockWise){
-        text.setString("clockwise");
         bee.angle -= dt.asSeconds() * bee.angularSpeed;
-        bee.spriteBee.setRotation(bee.angle + 90);
-        //// Invert bee to point at the direction it is going
-        //if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x > 0 ){
-        //  invertBeeSprite(bee, true);
-        //}else if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x < 0) {
-        //  invertBeeSprite(bee, false);
-        //}
+        
+        // Invert bee to point at the direction it is going
+        if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x > 0 ){
+          invertBeeSprite(bee, true);
+        }else if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x < 0) {
+          invertBeeSprite(bee, false);
+        }
       }else{
-        text.setString("anticlockwise");
         bee.angle += dt.asSeconds() * bee.angularSpeed;
-        bee.spriteBee.setRotation(bee.angle - 90);
-        //// Invert bee to point at the direction it is going
-        //if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x > 0 ){
-        //  invertBeeSprite(bee, true);
-        //}else if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x < 0) {
-        //  invertBeeSprite(bee, false);
-        //}
+        
+        // Invert bee to point at the direction it is going
+        if((getCuadrant(bee) == 3 || getCuadrant(bee) == 4) && bee.spriteBee.getScale().x > 0 ){
+          invertBeeSprite(bee, true);
+        }else if((getCuadrant(bee) == 1 || getCuadrant(bee) == 2) && bee.spriteBee.getScale().x < 0) {
+          invertBeeSprite(bee, false);
+        }
       }
 
       

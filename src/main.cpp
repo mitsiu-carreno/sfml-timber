@@ -71,12 +71,6 @@ setWindowHeight(modes[0].height);
     (getWindowWidth()/20)/bee.spriteBee.getLocalBounds().width
   );
 
-  sf::Font font;
-  font.loadFromFile("resources/fonts/KOMIKAP_.ttf");
-  Text text;
-  text.setFont(font);
-  text.setFillColor(sf::Color::Green);
-
   // Prepare the clouds
   // Make 3 cloud sprites from 1 texture
   Texture textureCloud;
@@ -94,8 +88,15 @@ setWindowHeight(modes[0].height);
   // Variables to control time itself
   Clock clock; 
 
+  // Pause / Unpause game
+  bool pause = true;
+
   while(window.isOpen())
   {
+
+    // Start measuring time from begining of frame calc
+    Time dt = clock.restart();
+
     /******************************
      * Handle the players input   *
      ******************************/
@@ -106,6 +107,14 @@ setWindowHeight(modes[0].height);
       if(event.type == Event::Closed) 
       {
         window.close();
+      }
+
+      if(event.type == Event::KeyPressed && event.key.code == Keyboard::Return){
+        pause = !pause;
+        if(!pause){
+          // Restart clock so delta time don't count pause period
+          clock.restart();
+        }
       }
       
       // Escape pressed: exit
@@ -141,16 +150,16 @@ setWindowHeight(modes[0].height);
     /******************************
      * Update the scene           *
      ******************************/
-
-    // Measure time
-    Time dt = clock.restart();
-
-    calcBeePosition(bee, dt, text);
     
-    // Manage clouds
-    setNewCloudPosition(cloud1, dt);
-    setNewCloudPosition(cloud2, dt);
-    setNewCloudPosition(cloud3, dt);
+    if(!pause){
+
+      calcBeePosition(bee, dt);
+
+      // Manage clouds
+      setNewCloudPosition(cloud1, dt);
+      setNewCloudPosition(cloud2, dt);
+      setNewCloudPosition(cloud3, dt);
+    }
     
     /******************************
      * Draw the scene             *
@@ -166,7 +175,6 @@ setWindowHeight(modes[0].height);
     window.draw(cloud3.spriteCloud);
     window.draw(spriteTree);
     window.draw(bee.spriteBee);
-    window.draw(text);
 
     // Show everything we just drew
     window.display();
