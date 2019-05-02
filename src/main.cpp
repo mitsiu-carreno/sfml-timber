@@ -89,8 +89,17 @@ setWindowHeight(modes[0].height);
   // Variables to control time itself
   Clock clock; 
 
+  float elapsedWaitingStart = 0.0f;
+  // Display fist command (enter to start)
+  bool start = false;
   // Pause / Unpause game
-  bool pause = false;
+  bool pause = true;
+
+  // Set initial positions (game start as paused)
+  calcBeePosition(bee, sf::milliseconds(1));
+  setNewCloudPosition(cloud1, sf::milliseconds(1));
+  setNewCloudPosition(cloud2, sf::milliseconds(1));
+  setNewCloudPosition(cloud3, sf::milliseconds(1));
   
   // HUD variables
   // Load font
@@ -105,8 +114,8 @@ setWindowHeight(modes[0].height);
   messageScore.setFont(font);
   messageText.setString("Press Enter to start!");
   messageScore.setString("Score: ");
-  messageText.setCharacterSize(getWindowWidth()/50);
-  messageScore.setCharacterSize(getWindowWidth()/70);
+  messageText.setCharacterSize(getWindowWidth()/40);
+  messageScore.setCharacterSize(getWindowWidth()/60);
   messageText.setFillColor(Color::Yellow);
   messageScore.setFillColor(Color::Red);
   
@@ -136,6 +145,7 @@ setWindowHeight(modes[0].height);
       }
 
       if(event.type == Event::KeyPressed && event.key.code == Keyboard::Return){
+        start = true;
         pause = !pause;
         if(!pause){
           // Restart clock so delta time don't count pause period
@@ -202,7 +212,13 @@ setWindowHeight(modes[0].height);
     window.draw(spriteTree);
     window.draw(bee.spriteBee);
 
-    window.draw(messageText);
+    //if(!start && static_cast<int>(clock.getElapsedTime().asSeconds())%2 == 1){
+    if(!start){
+      elapsedWaitingStart += dt.asSeconds();
+      if(static_cast<int>(elapsedWaitingStart)%2 == 1){
+        window.draw(messageText);
+      }
+    }
     window.draw(messageScore);
 
     // Show everything we just drew
