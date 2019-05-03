@@ -11,6 +11,7 @@
 #include "random_generator.hpp"
 #include "move_clouds.hpp"
 #include "move_bee.hpp"
+#include "hud.hpp"
 
 using namespace sf;
 
