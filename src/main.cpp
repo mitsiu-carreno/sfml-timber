@@ -1,9 +1,6 @@
-// Include important C++ libraries here
 // #include "stdafx.h"
 #include <SFML/Graphics.hpp>
-//#include <stdlib.h> //sleep
 #include <iostream>
-//#include <string>
 
 #include "constants.hpp"
 #include "cloud.hpp"
