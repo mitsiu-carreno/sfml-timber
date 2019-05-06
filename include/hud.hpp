@@ -3,6 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-void updateHud(sf::Time dt);
+void updateHud(sf::RenderWindow &window, sf::Time dt);
 
 #endif
