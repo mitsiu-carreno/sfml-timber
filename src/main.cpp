@@ -1,9 +1,9 @@
 // Include important C++ libraries here
 // #include "stdafx.h"
 #include <SFML/Graphics.hpp>
-#include <stdlib.h> //sleep
+//#include <stdlib.h> //sleep
 #include <iostream>
-#include <string>
+//#include <string>
 
 #include "constants.hpp"
 #include "cloud.hpp"
@@ -102,28 +102,8 @@ setWindowHeight(modes[0].height);
   setNewCloudPosition(cloud2, sf::milliseconds(1));
   setNewCloudPosition(cloud3, sf::milliseconds(1));
   
-  // HUD variables
-  // Load font
-  //Font font;
-  //font.loadFromFile("resources/fonts/KOMIKAP_.ttf");
 
-  //int score = 0;
-  //Text messageText;
-  //Text messageScore;
-  
-  //messageText.setFont(font);
-  //messageScore.setFont(font);
-  //messageText.setString("Press Enter to start!");
-  //messageScore.setString("Score: ");
-  //messageText.setCharacterSize(getWindowWidth()/40);
-  //messageScore.setCharacterSize(getWindowWidth()/60);
-  //messageText.setFillColor(Color::Yellow);
-  //messageScore.setFillColor(Color::Red);
-  
-  //Position the HUD
-  //messageText.setOrigin(messageText.getLocalBounds().width/2,messageText.getLocalBounds().height/2);
-  //messageText.setPosition(getWindowWidth()/2,getWindowHeight()/2);
-  //messageScore.setPosition(getWindowWidth()/15,getWindowHeight()/15);
+  int score = 0;
 
 
 
@@ -213,15 +193,7 @@ setWindowHeight(modes[0].height);
     window.draw(spriteTree);
     window.draw(bee.spriteBee);
 
-    updateHud(window, dt);
-    //if(!start && static_cast<int>(clock.getElapsedTime().asSeconds())%2 == 1){
-    //if(!start){
-    //  elapsedWaitingStart += dt.asSeconds();
-    //  if(static_cast<int>(elapsedWaitingStart)%2 == 1){
-    //    window.draw(messageText);
-    //  }
-    //}
-    //window.draw(messageScore);
+    updateHud(window, score, dt);
 
     // Show everything we just drew
     window.display();

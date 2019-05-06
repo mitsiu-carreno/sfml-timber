@@ -3,6 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 
-void updateHud(sf::RenderWindow &window, sf::Time dt);
+void updateHud(sf::RenderWindow &window, const int &score, sf::Time dt);
 
 #endif
