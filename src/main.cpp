@@ -26,7 +26,8 @@ setWindowHeight(modes[0].height);
   //VideoMode video(640, 480);
 
   // Create and open a window for the game RenderWindow
-  RenderWindow window(video, "Timber!!!", Style::Fullscreen);
+  //RenderWindow window(video, "Timber!!!", Style::Fullscreen);
+  RenderWindow window(video, "Timber!!!");
   
   // Create a texture to hold a graphic on the CPU
   Texture textureBackground;
